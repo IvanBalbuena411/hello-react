@@ -1,3 +1,6 @@
+// imports
+// path es un modulo base de NodeJS, no hay que instalarlo con npm
+const path = require('path');
 const express  = require('express');
 const mongoose = require('mongoose');
 const cors     = require('cors');
@@ -19,6 +22,11 @@ mongoose
     console.log(`DB connected @ ${db}`);
   })
   .catch(err => console.error(`Connection error ${err}`));
+  app.use(express.static('public'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
+
 // todo el middleware aca abajo y antes del listen
 app.use(express.json());
 app.use(cors());
